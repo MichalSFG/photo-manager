@@ -2,12 +2,14 @@ package pl.jasmic.photomanager.photo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PhotoController {
@@ -32,6 +34,13 @@ public class PhotoController {
         photo.setPath(file.getOriginalFilename());
         photo.prePersist();
         photoService.add(photo);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/del/{id}")
+    public String delPhoto(@PathVariable Long id) {
+        Optional<Photo> byId = photoService.findById(id);
+        byId.ifPresent(photoService::delete);
         return "redirect:/";
     }
 }

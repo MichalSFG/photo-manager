@@ -10,14 +10,12 @@
     <script src="<c:url value="/resources/js/lightbox-plus-jquery.min.js"/> "></script>
 </head>
 <body>
-<div align="center" style="background-color: lightgrey">
+<div class="uploadSection">
     <h3>Photo Upload:</h3>
-    Select a photo to upload - max. 10MB: <br/>
+    Select a photo to upload - max. 10MB: <br>
     <form action="/add" method="post" enctype="multipart/form-data">
-        Photo name: <input type="text" name="name"/>
-        <br>
-        <input type="file" name="file" size="50"/>
-        <br>
+        Photo name: <input type="text" name="name"/><br>
+        <input type="file" name="file" size="50"/><br>
         <input type="submit" value="Upload Photo"/>
     </form>
 </div>
@@ -25,6 +23,7 @@
     <c:forEach items="${photos}" var="item">
         <a href="${item.path}" data-lightbox="photoGallery" data-title="${item.name}">
             <img src="${item.path}" title="${item.name}" alt=""></a>
+        <a href="/del/${item.id}" title="Delete ${item.name}">[x]</a>
     </c:forEach>
 </div>
 </body>

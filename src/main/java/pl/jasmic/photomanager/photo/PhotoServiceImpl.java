@@ -3,6 +3,7 @@ package pl.jasmic.photomanager.photo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PhotoServiceImpl implements PhotoService {
@@ -19,7 +20,17 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
+    public Optional<Photo> findById(Long id) {
+        return photoRepository.findById(id);
+    }
+
+    @Override
     public void add(Photo photo) {
         photoRepository.save(photo);
+    }
+
+    @Override
+    public void delete(Photo photo) {
+        photoRepository.delete(photo);
     }
 }

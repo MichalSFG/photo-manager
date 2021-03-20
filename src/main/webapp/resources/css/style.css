@@ -1,5 +1,5 @@
 .gallery {
-    margin: 10px 50px;
+    margin: 10px 100px;
 }
 
 .gallery img {
@@ -12,4 +12,10 @@
 .gallery img:hover {
     filter: grayscale(100%);
     transform: scale(1.1);
+}
+
+.uploadSection {
+    text-align: center;
+    background-color: lightgray;
+    padding-bottom: 5px;
 }
