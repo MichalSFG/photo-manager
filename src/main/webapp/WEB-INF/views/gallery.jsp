@@ -12,7 +12,7 @@
 <body>
 <div class="uploadSection">
     <h3>Photo Upload:</h3>
-    Select a photo to upload - max. 10MB: <br>
+    Select a photo to upload: <br>
     <form action="/add" method="post" enctype="multipart/form-data">
         Photo name: <input type="text" name="name"/><br>
         <input type="file" name="file" size="50"/><br>
@@ -22,8 +22,10 @@
 <div class="gallery">
     <c:forEach items="${photos}" var="item">
         <a href="${item.path}" data-lightbox="photoGallery" data-title="${item.name}">
-            <img src="${item.path}" title="${item.name}" alt=""></a>
-        <a href="/del/${item.id}" title="Delete ${item.name}">[x]</a>
+            <img id="photo" src="${item.path}" title="${item.name}" alt=""></a>
+        <a id="delButton" href="/del/${item.id}"
+           onclick="if(confirm('Are you sure, you want to delete this photo?')===false) return false;"
+           title="Delete ${item.name}">[x]</a>
     </c:forEach>
 </div>
 </body>

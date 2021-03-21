@@ -1,5 +1,6 @@
 package pl.jasmic.photomanager.photo;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class PhotoController {
 
     private final PhotoService photoService;
@@ -38,7 +40,7 @@ public class PhotoController {
     }
 
     @RequestMapping("/del/{id}")
-    public String delPhoto(@PathVariable Long id) {
+    public String deletePhoto(@PathVariable Long id) {
         Optional<Photo> byId = photoService.findById(id);
         byId.ifPresent(photoService::delete);
         return "redirect:/";
