@@ -13,6 +13,9 @@
 <div class="uploadSection">
     <h3>Photo Upload:</h3>
     Select a photo to upload: <br>
+    <c:if test="${not empty image}">
+        <h5 style="color: red">${image}</h5>
+    </c:if>
     <form action="/add" method="post" enctype="multipart/form-data">
         Photo name: <input type="text" name="name"/><br>
         <input type="file" name="file" size="50"/><br>
@@ -20,6 +23,9 @@
     </form>
 </div>
 <div class="gallery">
+    <c:if test="${empty photos}">
+        <h1 style="text-align: center;font-style: italic; font-weight: bold">No images in the gallery! Add some :)</h1>
+    </c:if>
     <c:forEach items="${photos}" var="item">
         <a href="${item.original}" data-lightbox="photoGallery" data-title="${item.name}">
             <img id="photo" src="${item.thumbnail}" title="${item.name}" alt=""></a>

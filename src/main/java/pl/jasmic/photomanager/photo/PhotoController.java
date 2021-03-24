@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -25,6 +22,11 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
+    @ModelAttribute("photos")
+    public List<Photo> allPhotos() {
+        return photoService.findAll();
+    }
+
     @RequestMapping("/")
     public String allPhotos(Model model) {
         List<Photo> all = photoService.findAll();
@@ -33,7 +35,12 @@ public class PhotoController {
     }
 
     @PostMapping("/add")
-    public String addPhoto(@RequestParam String name, @RequestParam MultipartFile file) {
+    public String addPhoto(@RequestParam String name, @RequestParam MultipartFile file, Model model) {
+        if (file.isEmpty() || name.isEmpty()) {
+            model.addAttribute("image", "You forgot to upload an image or add image name!");
+            return "gallery";
+        }
+
         String photoDir = "/home/michal/Downloads/photos/";
         String originalFileName = file.getOriginalFilename();
         assert originalFileName != null;
