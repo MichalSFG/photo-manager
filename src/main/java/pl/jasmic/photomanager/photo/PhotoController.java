@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,14 +44,12 @@ public class PhotoController {
             return "gallery";
         }
 
-        String originalFileName = file.getOriginalFilename();
-        assert originalFileName != null;
-        File thumbnailFile = new File(originalFileName.substring(0, originalFileName.lastIndexOf('.'))
-                + "-thumbnail.jpg");
+        String randomFileName = RandomStringUtils.randomAlphabetic(10);
+        File thumbnailFile = new File(randomFileName + "-thumbnail.jpg");
 
         try {
-            file.transferTo(new File(IMAGES_DIRECTORY + originalFileName));
-            Thumbnails.of(IMAGES_DIRECTORY + originalFileName)
+            file.transferTo(new File(IMAGES_DIRECTORY + randomFileName));
+            Thumbnails.of(IMAGES_DIRECTORY + randomFileName)
                     .size(250, 250)
                     .toFile(IMAGES_DIRECTORY + thumbnailFile);
         } catch (IllegalStateException | IOException e) {
@@ -59,7 +58,7 @@ public class PhotoController {
 
         Photo photo = new Photo();
         photo.setName(name);
-        photo.setOriginal(originalFileName);
+        photo.setOriginal(randomFileName);
         photo.setThumbnail(thumbnailFile.getPath());
         photo.prePersist();
         photoService.add(photo);
