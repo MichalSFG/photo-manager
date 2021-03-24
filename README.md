@@ -4,4 +4,4 @@
 
 2. ### W pliku application-properties trzeba uzupełnić dane dostępowe do bazy danych i wskazać ścieżkę do katalogu docelowego na dysku dla zdjęć.
 
-3. ### W PhotoController również należy wskazać ścieżkę do katalogu docelowego. (tę samą, jak wyżej)
+3. ### W PhotoController (constant IMAGES_DIRECTORY) również należy wskazać ścieżkę do katalogu docelowego. (tę samą, jak wyżej)

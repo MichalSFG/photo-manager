@@ -22,6 +22,8 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
+    private static final String IMAGES_DIRECTORY = "/home/michal/Downloads/photos/";
+
     @ModelAttribute("photos")
     public List<Photo> allPhotos() {
         return photoService.findAll();
@@ -41,17 +43,16 @@ public class PhotoController {
             return "gallery";
         }
 
-        String photoDir = "/home/michal/Downloads/photos/";
         String originalFileName = file.getOriginalFilename();
         assert originalFileName != null;
         File thumbnailFile = new File(originalFileName.substring(0, originalFileName.lastIndexOf('.'))
                 + "-thumbnail.jpg");
 
         try {
-            file.transferTo(new File(photoDir + originalFileName));
-            Thumbnails.of(photoDir + originalFileName)
-                    .size(160, 160)
-                    .toFile(photoDir + thumbnailFile);
+            file.transferTo(new File(IMAGES_DIRECTORY + originalFileName));
+            Thumbnails.of(IMAGES_DIRECTORY + originalFileName)
+                    .size(250, 250)
+                    .toFile(IMAGES_DIRECTORY + thumbnailFile);
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
